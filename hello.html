@@ -1,0 +1,329 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>별자리 소개 - 실제 사진</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #0b1d38;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #1c2e4a;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.8em;
+      color: #fcd12a;
+    }
+
+    header p {
+      margin-top: 8px;
+      font-size: 1.2em;
+      color: #a9c9ff;
+    }
+
+    main {
+      flex: 1;
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 20px;
+      display: flex;
+      gap: 30px;
+    }
+
+    #buttons {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    #buttons button {
+      background-color: #16243b;
+      color: #fcd12a;
+      border: none;
+      padding: 15px 20px;
+      font-size: 1.1em;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      text-align: left;
+    }
+
+    #buttons button:hover {
+      background-color: #fcd12a;
+      color: #16243b;
+      font-weight: bold;
+    }
+
+    #buttons button.active {
+      background-color: #fcd12a;
+      color: #16243b;
+      font-weight: bold;
+      cursor: default;
+    }
+
+    #detail {
+      flex: 2;
+      background-color: #16243b;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 0 15px #0f1a2d;
+      color: #d9e8ff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #detail img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 15px rgba(252, 209, 42, 0.6);
+    }
+
+    #detail h2 {
+      color: #fcd12a;
+      margin-bottom: 12px;
+      font-size: 2em;
+    }
+
+    #detail p {
+      font-size: 1.1em;
+      line-height: 1.6;
+      text-align: center;
+      white-space: pre-line;
+    }
+
+    #detail .date {
+      font-style: italic;
+      margin-bottom: 15px;
+      color: #a9c9ff;
+    }
+
+    footer {
+      background-color: #1c2e4a;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9em;
+      color: #9db7d2;
+      margin-top: auto;
+    }
+
+    a {
+      color: #8ecae6;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>별자리 소개</h1>
+    <p>실제 별자리 사진과 함께 별의 특징과 유래를 알아보세요!</p>
+  </header>
+  <main>
+    <div id="buttons"></div>
+    <div id="detail">
+      <p>왼쪽 별자리를 선택해 정보를 확인하세요.</p>
+    </div>
+  </main>
+  <footer>
+    &copy; 2025 별자리 월드 | <a href="#">문의하기</a>
+  </footer>
+  <script>
+    const constellations = [
+  {
+    name: "물병자리",
+    eng: "Aquarius",
+    date: "1월 20일 ~ 2월 18일",
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Aquarius_IAU.svg/1200px-Aquarius_IAU.svg.png",
+    description: "창의적이고 독립적인 성격의 별자리입니다. 자유로운 사고를 즐기며 혁신적인 아이디어를 제시합니다. 주변 사람들에게 신선한 자극을 주며, 독창적인 활동을 좋아합니다.",
+    origin: "가니메데스라는 미소년이 제우스에게 선택되어 올림푸스 산에서 물을 따르는 역할을 맡으면서 별자리가 되었다고 전해집니다.",
+    luckyNumber: "7",
+    luckyColor: "파란색",
+    symbol: "물병"
+  },
+  {
+    name: "물고기자리",
+    eng: "Pisces",
+    date: "2월 19일 ~ 3월 20일",
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Pisces_IAU.svg/1200px-Pisces_IAU.svg.png",
+    description: "감성적이고 상상력이 풍부하며 공감 능력이 뛰어난 별자리입니다. 예술적인 재능이 뛰어나며, 타인을 이해하고 돕는 데에 능숙합니다.",
+    origin: "아프로디테와 에로스가 괴물 타이폰을 피해 물고기로 변해 도망친 후 하늘에 올려져 별자리가 되었습니다.",
+    luckyNumber: "3",
+    luckyColor: "연보라",
+    symbol: "물고기"
+  },
+  {
+    name: "양자리",
+    eng: "Aries",
+    date: "3월 21일 ~ 4월 19일",
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Aries_IAU.svg/1200px-Aries_IAU.svg.png",
+    description: "열정적이고 용감한 성격의 별자리입니다. 리더십과 추진력이 강하며, 도전에 대한 두려움이 없습니다. 선두에서 개척하는 것을 즐깁니다.",
+    origin: "황금 양의 털을 가진 동물이 프릭소스를 구한 후 하늘에 올라 별자리가 되었다고 합니다.",
+    luckyNumber: "1",
+    luckyColor: "빨간색",
+    symbol: "양"
+  },
+  {
+    name: "황소자리",
+    eng: "Taurus",
+    date: "4월 20일 ~ 5월 20일",
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Taurus_IAU.svg/1200px-Taurus_IAU.svg.png",
+    description: "신중하고 안정적인 성격의 별자리입니다. 끈기 있고 현실적인 성향으로 목표를 꾸준히 이루어갑니다. 미적 감각이 뛰어나며, 물질적 안정감을 추구합니다.",
+    origin: "제우스가 황소로 변해 유럽을 납치한 이야기에서 유래되었습니다.",
+    luckyNumber: "4",
+    luckyColor: "녹색",
+    symbol: "황소"
+  },
+  {
+    name: "쌍둥이자리",
+    eng: "Gemini",
+    date: "5월 21일 ~ 6월 21일",
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Gemini_IAU.svg/1200px-Gemini_IAU.svg.png",
+    description: "호기심 많고 활발하며 의사소통 능력이 뛰어난 별자리입니다. 새로운 지식을 배우는 것을 좋아하고, 다양한 사람들과의 교류를 즐깁니다.",
+    origin: "카스토르와 폴룩스라는 형제가 죽은 뒤 하늘에서 별자리가 되었다고 전해집니다.",
+    luckyNumber: "5",
+    luckyColor: "노란색",
+    symbol: "쌍둥이"
+  },
+  {
+    name: "게자리",
+    eng: "Cancer",
+    date: "6월 22일 ~ 7월 22일",
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Cancer_IAU.svg/1200px-Cancer_IAU.svg.png",
+    description: "감성적이고 가족과의 유대감을 소중히 여기는 별자리입니다. 보호 본능이 강하며 친밀한 관계를 중시합니다.",
+    origin: "헤라가 영웅 헤라클레스를 괴롭히기 위해 보낸 게가 별자리가 되었다고 합니다.",
+    luckyNumber: "2",
+    luckyColor: "은색",
+    symbol: "게"
+  },
+  {
+    name: "사자자리",
+    eng: "Leo",
+    date: "7월 23일 ~ 8월 22일",
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Leo_IAU.svg/1200px-Leo_IAU.svg.png",
+    description: "자신감 있고 창의적이며 리더십이 강한 별자리입니다. 주목받는 것을 좋아하고 당당하며 에너지가 넘칩니다.",
+    origin: "헤라클레스가 퇴치한 네메아의 사자가 하늘에 올라 별자리가 되었다고 전해집니다.",
+    luckyNumber: "8",
+    luckyColor: "금색",
+    symbol: "사자"
+  },
+  {
+    name: "처녀자리",
+    eng: "Virgo",
+    date: "8월 23일 ~ 9월 22일",
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Virgo_IAU.svg/1200px-Virgo_IAU.svg.png",
+    description: "신중하고 분석적인 성격의 별자리입니다. 책임감이 강하고 계획적으로 행동하며 세부적인 것에 주의를 기울입니다.",
+    origin: "곡식의 여신 데메테르 또는 정의의 여신 아스트라이아와 관련된 별자리입니다.",
+    luckyNumber: "6",
+    luckyColor: "베이지",
+    symbol: "처녀"
+  },
+  {
+    name: "천칭자리",
+    eng: "Libra",
+    date: "9월 23일 ~ 10월 22일",
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Libra_IAU.svg/1200px-Libra_IAU.svg.png",
+    description: "균형과 조화를 중시하는 별자리입니다. 공정함과 아름다움을 사랑하며 타인과의 조화로운 관계를 추구합니다.",
+    origin: "정의의 여신 아스트라이아가 들고 있던 저울에서 유래되었다고 전해집니다.",
+    luckyNumber: "9",
+    luckyColor: "하늘색",
+    symbol: "저울"
+  },
+  {
+    name: "전갈자리",
+    eng: "Scorpio",
+    date: "10월 23일 ~ 11월 22일",
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Scorpius_IAU.svg/1200px-Scorpius_IAU.svg.png",
+    description: "열정적이고 직관력이 뛰어나며 신비로운 분위기의 별자리입니다. 깊은 감정을 가지고 있으며 강한 집중력을 보입니다.",
+    origin: "사냥꾼 오리온을 죽이기 위해 보내진 전갈이 하늘에 올라 별자리가 되었습니다.",
+    luckyNumber: "0",
+    luckyColor: "검은색",
+    symbol: "전갈"
+  },
+  {
+    name: "사수자리",
+    eng: "Sagittarius",
+    date: "11월 23일 ~ 12월 21일",
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Sagittarius_IAU.svg/1200px-Sagittarius_IAU.svg.png",
+    description: "자유롭고 낙천적인 별자리입니다. 철학과 여행, 새로운 지식에 대한 갈망이 있으며 모험을 즐깁니다.",
+    origin: "반인반마인 케이론이 하늘에 올려져 별자리가 되었다는 전설이 있습니다.",
+    luckyNumber: "12",
+    luckyColor: "보라색",
+    symbol: "궁수"
+  },
+  {
+    name: "염소자리",
+    eng: "Capricorn",
+    date: "12월 22일 ~ 1월 19일",
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Capricornus_IAU.svg/1200px-Capricornus_IAU.svg.png",
+    description: "성실하고 책임감 있으며 현실적인 성향을 가진 별자리입니다. 끈기 있게 목표를 추구하며 실천력이 뛰어납니다.",
+    origin: "신 판(Pan)이 물고기 형태로 변해 도망친 후 하늘에 별자리가 되었다는 신화에서 유래합니다.",
+    luckyNumber: "10",
+    luckyColor: "갈색",
+    symbol: "염소"
+  }
+];
+
+    const buttonsContainer = document.getElementById("buttons");
+    const detailContainer = document.getElementById("detail");
+
+    constellations.forEach((c, index) => {
+      const btn = document.createElement("button");
+      btn.textContent = `${c.name} (${c.eng})`;
+      btn.setAttribute("data-index", index);
+      btn.addEventListener("click", () => showDetail(index));
+      buttonsContainer.appendChild(btn);
+    });
+
+    function showDetail(index) {
+      const c = constellations[index];
+      const allButtons = buttonsContainer.querySelectorAll("button");
+      allButtons.forEach((btn) => btn.classList.remove("active"));
+      allButtons[index].classList.add("active");
+
+      const detailHTML = `
+        <img src="${c.img}" alt="${c.name} 실제 별자리 사진" />
+        <h2>${c.name} (${c.eng})</h2>
+        <div class="date">${c.date}</div>
+        <p>${c.description}</p>
+        <p><strong>📜 유래:</strong><br>${c.origin}</p>
+        <p><strong>🎨 행운의 색:</strong> ${c.luckyColor}</p>
+        <p><strong>🔢 행운의 숫자:</strong> ${c.luckyNumber}</p>
+        <p><strong>🔯 상징:</strong> ${c.symbol}</p>`;
+
+      detailContainer.innerHTML = detailHTML;`
+        <img src="${c.img}" alt="${c.name} 실제 별자리 사진" />
+        <h2>${c.name} (${c.eng})</h2>
+        <div class="date">${c.date}</div>
+        <p>${c.description}</p>
+        <hr style="width: 100%; margin: 20px 0; border-color: #2f3d59;" />
+        <p><strong>📜 유래:</strong><br>${c.origin}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
